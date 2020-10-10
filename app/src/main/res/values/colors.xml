@@ -6,7 +6,9 @@
     <color name="colorAccent">#D81B60</color>
     <color name="colorDark">#0E0E0E</color>
     <color name="colorWhite">#FFFFFF</color>
+    <color name="colorWhite2">#bbFFFFFF</color>
     <color name="colorGray">#535353</color>
+    <color name="colorGrayDeep">#232323</color>
     <color name="transparent">#00000000</color>
     <color name="colorBlueLight">#700D62A5</color>
     <color name="colorGreen">#409344</color>

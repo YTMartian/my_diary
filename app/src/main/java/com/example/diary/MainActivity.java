@@ -2,23 +2,34 @@ package com.example.diary;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.os.Build;
 import android.view.*;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.LinearLayout;
+import android.widget.TextView;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+
+import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity {
     private DatePicker picker;
     private Dialog dialog;
+    private LinearLayout scrollArea;
+    private String[] months_name;
 
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getSupportActionBar().setElevation(0);//去掉actionbar下方阴影
+        months_name = new String[]{"JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE", "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"};
         setContentView(R.layout.activity_main);
         dialog = new Dialog(this);
+        scrollArea = findViewById(R.id.scrollArea);
+        initialization();
     }
 
     /**
@@ -32,7 +43,6 @@ public class MainActivity extends AppCompatActivity {
         MenuInflater menuInflater = getMenuInflater();
         ((MenuInflater) menuInflater).inflate(R.menu.top_menu, menu);
         MenuItem myTool = menu.findItem(R.id.my_tool);
-        initialization();
         myTool.setActionView(R.layout.my_tool);
         return true;
     }
@@ -40,14 +50,47 @@ public class MainActivity extends AppCompatActivity {
     /**
      * 初始化
      */
-    @SuppressLint("SetTextI18n")
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     private void initialization() {
-        LinearLayout scrollArea = findViewById(R.id.scrollArea);
-        for (int i = 0; i < 20; i++) {
-            Button btn = new Button(this);
-            btn.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-            btn.setText(Integer.toString(i));
-            scrollArea.addView(btn);
+        Calendar current = Calendar.getInstance();
+        int currentYear = current.get(Calendar.YEAR);
+        for (int year = currentYear - 1; year <= currentYear + 1; year++) {
+            addYear(year);
+        }
+    }
+
+    /**
+     * 添加一年的日记
+     *
+     * @param year
+     */
+    @SuppressLint("SetTextI18n")
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
+    private void addYear(int year) {
+        Calendar c = Calendar.getInstance();
+        for (int month = 0; month < 12; month++) {
+            c.set(year, month, 1);//月份从0开始
+            int totalDays = c.getActualMaximum(Calendar.DAY_OF_MONTH);
+//            System.out.println(totalDays + "***" + c.get(Calendar.YEAR) + "-" + c.get(Calendar.MONTH) + "-" + c.get(Calendar.DAY_OF_MONTH));
+            TextView tv = new TextView(this);
+            tv.setBackgroundColor(getResources().getColor(R.color.colorDark));
+            tv.setTextColor(getResources().getColor(R.color.colorWhite2));
+            tv.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+            tv.setTextSize(18);
+            tv.setPadding(0, 10, 0, 10);
+            tv.setText(months_name[month] + " " + Integer.toString(year));
+//            scrollArea.addView(tv);
+            LinearLayout ll = new LinearLayout(this);
+
+            ll.setOrientation(LinearLayout.HORIZONTAL);
+            ll.setPadding(0, 1, 0, 0);
+            for (int day = 1; day <= totalDays; day++) {
+                MyButton btn = new MyButton(this);
+                btn.setText(Integer.toString(month) + "-" + Integer.toString(day));
+                btn.setTime(year, month, day);
+                ll.addView(btn);
+            }
+            scrollArea.addView(ll);
         }
     }
 

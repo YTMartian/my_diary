@@ -7,4 +7,6 @@
     <string name="Fri">Fri</string>
     <string name="Sat">Sat</string>
     <string name="Sun">Sun</string>
+    <string name="ok">OK</string>
+    <string name="cancel">CANCEL</string>
 </resources>

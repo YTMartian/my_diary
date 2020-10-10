@@ -63,13 +63,18 @@
     <ScrollView
             android:layout_width="409dp"
             android:layout_height="707dp"
+            android:scrollbars="none"
             tools:layout_editor_absoluteX="1dp"
             tools:layout_editor_absoluteY="23dp">
 
         <LinearLayout
+                android:id="@+id/scrollArea"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical" />
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+        </LinearLayout>
+
     </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -17,21 +17,32 @@
             aandroid:ignore="UselessParent">
 
         <at.markushi.ui.CircleButton
-                android:id="@+id/calender"
+                android:id="@+id/id_calender"
                 android:layout_width="54dp"
                 android:layout_height="54dp"
                 android:onClick="calender_button"
                 android:src="@drawable/ic_calender"
                 app:cb_color="@color/colorPrimary"
+                android:tooltipText="跳转日期"
                 app:cb_pressedRingWidth="5dip" />
 
         <at.markushi.ui.CircleButton
-                android:id="@+id/export"
+                android:id="@+id/id_export"
                 android:layout_width="54dp"
                 android:layout_height="54dp"
                 android:onClick="export_button"
                 android:src="@drawable/ic_export"
                 app:cb_color="@color/colorPrimary"
+                android:tooltipText="日记导出"
+                app:cb_pressedRingWidth="5dip" />
+        <at.markushi.ui.CircleButton
+                android:id="@+id/id_settings"
+                android:layout_width="54dp"
+                android:layout_height="54dp"
+                android:onClick="settings_button"
+                android:src="@drawable/ic_settings"
+                app:cb_color="@color/colorPrimary"
+                android:tooltipText="设置"
                 app:cb_pressedRingWidth="5dip" />
     </LinearLayout>
 

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="calendarStyle" parent="ThemeOverlay.AppCompat.Dialog">
+        <item name="colorAccent">@color/colorPrimary</item><!--header background-->
+        <item name="android:windowBackground">@color/colorGray</item><!--calendar background-->
+        <item name="android:colorControlActivated">@color/colorPrimary</item><!--selected day-->
+        <item name="android:textColorPrimary">@color/colorWhite
+        </item><!--days of the month-->
+        <item name="android:textColorSecondary">@color/colorWhite</item><!--days of the week-->
+        <item name="android:yearListSelectorColor">@color/colorAccent</item>
+    </style>
+</resources>

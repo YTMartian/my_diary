@@ -4,7 +4,7 @@
     <style name="calendarStyle" parent="ThemeOverlay.AppCompat.Dialog">
         <item name="colorAccent">@color/colorPrimary</item><!--header background-->
         <item name="android:windowBackground">@color/colorGray</item><!--calendar background-->
-        <item name="android:colorControlActivated">@color/colorPrimary</item><!--selected day-->
+        <item name="android:colorControlActivated">@color/colorPrimaryLight</item><!--selected day-->
         <item name="android:textColorPrimary">@color/colorWhite
         </item><!--days of the month-->
         <item name="android:textColorSecondary">@color/colorWhite</item><!--days of the week-->

@@ -1,12 +1,12 @@
 <resources>
-    <string name="app_name">Diary</string>
-    <string name="Mon">Mon</string>
-    <string name="Tue">Tue</string>
-    <string name="Wed">Wed</string>
-    <string name="Thu">Thu</string>
-    <string name="Fri">Fri</string>
-    <string name="Sat">Sat</string>
-    <string name="Sun">Sun</string>
+    <string name="app_name">日記</string>
+    <string name="Mon">一</string>
+    <string name="Tue">二</string>
+    <string name="Wed">三</string>
+    <string name="Thu">四</string>
+    <string name="Fri">五</string>
+    <string name="Sat">六</string>
+    <string name="Sun">日</string>
     <string name="ok">OK</string>
     <string name="cancel">CANCEL</string>
 </resources>

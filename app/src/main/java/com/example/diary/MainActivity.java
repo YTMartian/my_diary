@@ -14,10 +14,11 @@ import androidx.core.content.ContextCompat;
 
 import java.util.Calendar;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnTouchListener {
     private DatePicker picker;
     private Dialog dialog;
     private LinearLayout scrollArea;
+    private ScrollView scrollView;
     private String[] months_name;
     private int startYear;
     private int lastYear;
@@ -30,11 +31,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getSupportActionBar().setElevation(0);//去掉顶部actionbar下方阴影
+        getWindow().setNavigationBarColor(getResources().getColor(R.color.colorDark));
         months_name = new String[]{"一月", "二月", "三月", "四月", "五月", "六月", "七月",
                 "八月", "九月", "十月", "十一月", "十二月"};
         setContentView(R.layout.activity_main);
         dialog = new Dialog(this);
         scrollArea = findViewById(R.id.scrollArea);
+        scrollView = findViewById(R.id.scrollView);
         curDate = Calendar.getInstance();
         initialization();
     }
@@ -59,6 +62,8 @@ public class MainActivity extends AppCompatActivity {
      */
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     private void initialization() {
+//        scrollView.setOnTouchListener(this);
+//        scrollView.getViewTreeObserver().addOnScrollChangedListener((ViewTreeObserver.OnScrollChangedListener) this);
         Calendar current = Calendar.getInstance();
         currentYear = current.get(Calendar.YEAR);
         startYear = currentYear - 1;
@@ -67,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
             addYear(year, false);
         }
         System.out.println("fuck  " + currentMonthScrollPosition);
-        scrollArea.setVerticalScrollbarPosition(currentMonthScrollPosition);
+        scrollView.scrollTo(0, currentMonthScrollPosition);
     }
 
     /**
@@ -81,9 +86,9 @@ public class MainActivity extends AppCompatActivity {
         Calendar c = Calendar.getInstance();
         for (int month = 0; month < 12; month++) {
             //获取当前日期所处位置
+            System.out.println(scrollView.getMeasuredHeight() + "***************");
             if (currentYear == year && month == curDate.get(Calendar.MONTH)) {
-                System.out.println("shit *****" + scrollArea.getTop());
-                currentMonthScrollPosition = scrollArea.getVerticalScrollbarPosition();
+                currentMonthScrollPosition = scrollView.getMaxScrollAmount();
             }
 
             GridLayout gl = new GridLayout(this);
@@ -92,7 +97,6 @@ public class MainActivity extends AppCompatActivity {
             c.set(year, month, 1);//月份从0开始
             int totalDays = c.getActualMaximum(Calendar.DAY_OF_MONTH);
 //            System.out.println(totalDays + "***" + c.get(Calendar.YEAR) + "-" + (c.get(Calendar.MONTH) + 1) + "-" + c.get(Calendar.DAY_OF_MONTH));
-//            System.out.println(c.get(Calendar.DAY_OF_WEEK));
             //显示月份信息
             TextView tv = new TextView(this);
             tv.setBackgroundColor(getResources().getColor(R.color.colorDark));
@@ -104,8 +108,8 @@ public class MainActivity extends AppCompatActivity {
             tvParam.height = GridLayout.LayoutParams.MATCH_PARENT;
             tvParam.width = GridLayout.LayoutParams.MATCH_PARENT;
             tvParam.setGravity(Gravity.CENTER);
-            tvParam.topMargin = 45;
-            tvParam.bottomMargin = 15;
+            tvParam.topMargin = 60;
+            tvParam.bottomMargin = 25;
             tv.setLayoutParams(tvParam);
             gl.addView(tv);
 
@@ -222,6 +226,33 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * ScrollView监视
+     */
+    public void onScrollChanged() {
+        View view = scrollArea.getChildAt(scrollArea.getChildCount() - 1);
+        int topDetector = scrollArea.getScrollY();
+        int bottomDetector = view.getBottom() - (scrollArea.getHeight() + scrollArea.getScrollY());
+        if (bottomDetector == 0) {
+            Toast.makeText(getBaseContext(), "Scroll View bottom reached", Toast.LENGTH_SHORT).show();
+        }
+        if (topDetector <= 0) {
+            Toast.makeText(getBaseContext(), "Scroll View top reached", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    /**
+     * 实现View.OnTouchListener接口
+     *
+     * @param v
+     * @param event
+     * @return
+     */
+    @Override
+    public boolean onTouch(View v, MotionEvent event) {
+        return false;
+    }
+
     public class MyOnClickListener implements View.OnClickListener {
 
         private int year = -1;
@@ -240,6 +271,8 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onClick(View v) {
+//            System.out.println(scrollView.getScrollY());
+//            scrollView.scrollTo(0,1100);
             new AlertDialog.Builder(context)
                     .setTitle("日期")
                     .setMessage(this.year + "-" + this.month + "-" + this.day)

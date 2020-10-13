@@ -13,6 +13,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.GridLayout;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import androidx.annotation.RequiresApi;
 
 import java.util.Calendar;
@@ -35,7 +36,8 @@ public class MyButton extends androidx.appcompat.widget.AppCompatButton {
         this.dayOfTheWeek = -1;
         this.setTextColor(getResources().getColor(R.color.colorWhite));
         this.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-        this.setTextAlignment(TEXT_ALIGNMENT_CENTER);
+        this.setTextAlignment(TEXT_ALIGNMENT_CENTER);//水平居中
+        this.setGravity(Gravity.CENTER);//垂直居中
         this.setTextSize(15);
         LinearLayout.LayoutParams btParam = new LinearLayout.LayoutParams(-1, -1);
         btParam.height = LinearLayout.LayoutParams.MATCH_PARENT;

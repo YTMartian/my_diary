@@ -133,7 +133,7 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
                 btn1.setText(Integer.toString(c.getActualMaximum(Calendar.DAY_OF_MONTH) - i + 1));
                 btn1.setTime(c.get(Calendar.YEAR), c.get(Calendar.MONTH) + 1, c.get(Calendar.DAY_OF_MONTH) - i + 1);
                 btn1.setTextColor(getResources().getColor(R.color.colorGray));
-                btn1.setBackgroundColor(getResources().getColor(R.color.colorDark));
+                btn1.setBackground(getResources().getDrawable(R.drawable.write_empty));
                 ll.addView(btn1);
                 addClickEvent(btn1);
             }
@@ -172,7 +172,7 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
                     btn1.setText(Integer.toString(1 + i - btn0.dayOfTheWeek));
                     btn1.setTime(c.get(Calendar.YEAR), c.get(Calendar.MONTH) + 1, 1 + i - btn0.dayOfTheWeek);
                     btn1.setTextColor(getResources().getColor(R.color.colorGray));
-                    btn1.setBackgroundColor(getResources().getColor(R.color.colorDark));
+                    btn1.setBackground(getResources().getDrawable(R.drawable.write_empty));
                     ll.addView(btn1);
                     addClickEvent(btn1);
                 }
@@ -273,11 +273,11 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
         public void onClick(View v) {
 //            System.out.println(scrollView.getScrollY());
 //            scrollView.scrollTo(0,1100);
-            new AlertDialog.Builder(context)
-                    .setTitle("日期")
-                    .setMessage(this.year + "-" + this.month + "-" + this.day)
-                    .setPositiveButton("OK", null)
-                    .show();
+//            new AlertDialog.Builder(context)
+//                    .setTitle("日期")
+//                    .setMessage(this.year + "-" + this.month + "-" + this.day)
+//                    .setPositiveButton("OK", null)
+//                    .show();
         }
 
 

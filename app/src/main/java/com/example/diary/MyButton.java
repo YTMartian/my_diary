@@ -1,24 +1,14 @@
 package com.example.diary;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Context;
-import android.graphics.Paint;
-import android.graphics.Rect;
-import android.graphics.drawable.ShapeDrawable;
-import android.graphics.drawable.shapes.RectShape;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.view.Gravity;
-import android.view.View;
-import android.widget.GridLayout;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import androidx.annotation.RequiresApi;
 
 import java.util.Calendar;
 
-import static android.view.View.*;
 
 public class MyButton extends androidx.appcompat.widget.AppCompatButton {
     public int year;
@@ -35,7 +25,9 @@ public class MyButton extends androidx.appcompat.widget.AppCompatButton {
         this.day = -1;
         this.dayOfTheWeek = -1;
         this.setTextColor(getResources().getColor(R.color.colorWhite));
-        this.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+//        this.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+//        this.setBackground(getResources().getDrawable(R.drawable.write_today));
+        this.setBackgroundDrawable(getResources().getDrawable(R.drawable.write_done));
         this.setTextAlignment(TEXT_ALIGNMENT_CENTER);//水平居中
         this.setGravity(Gravity.CENTER);//垂直居中
         this.setTextSize(15);
@@ -53,6 +45,7 @@ public class MyButton extends androidx.appcompat.widget.AppCompatButton {
 //        setBackground(shapedrawable);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     public void setTime(int year, int month, int day) {
         this.year = year;
         this.month = month;
@@ -65,7 +58,7 @@ public class MyButton extends androidx.appcompat.widget.AppCompatButton {
         if (this.dayOfTheWeek == 0) this.dayOfTheWeek = 7;
         Calendar cur = Calendar.getInstance();
         if (cur.get(Calendar.YEAR) == this.year && cur.get(Calendar.MONTH) == this.month - 1 && cur.get(Calendar.DAY_OF_MONTH) == this.day) {
-            this.setBackgroundColor(getResources().getColor(R.color.colorGreen));
+            this.setForeground(getResources().getDrawable(R.drawable.ic_circle));
         }
     }
 
@@ -76,10 +69,6 @@ public class MyButton extends androidx.appcompat.widget.AppCompatButton {
     public MyButton(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
     }
-
-//    public void setText(String s) {
-//        System.out.println("fffffffffffffffffffffffffffffffffff&&&&&&&&&&&");
-//    }
 
     /**
      * 设置按钮长宽一一致

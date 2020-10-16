@@ -25,8 +25,6 @@ public class MyButton extends androidx.appcompat.widget.AppCompatButton {
         this.day = -1;
         this.dayOfTheWeek = -1;
         this.setTextColor(getResources().getColor(R.color.colorWhite));
-//        this.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
-//        this.setBackground(getResources().getDrawable(R.drawable.write_today));
         this.setBackgroundDrawable(getResources().getDrawable(R.drawable.write_done));
         this.setTextAlignment(TEXT_ALIGNMENT_CENTER);//水平居中
         this.setGravity(Gravity.CENTER);//垂直居中
@@ -37,12 +35,6 @@ public class MyButton extends androidx.appcompat.widget.AppCompatButton {
         btParam.bottomMargin = 5;
         btParam.weight = 1;
         this.setLayoutParams(btParam);
-//        ShapeDrawable shapedrawable = new ShapeDrawable();
-//        shapedrawable.setShape(new RectShape());
-//        shapedrawable.getPaint().setColor(getResources().getColor(R.color.colorDark));
-//        shapedrawable.getPaint().setStrokeWidth(5);
-//        shapedrawable.getPaint().setStyle(Paint.Style.STROKE);
-//        setBackground(shapedrawable);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)

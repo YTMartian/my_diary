@@ -50,6 +50,7 @@ public class MyButton extends androidx.appcompat.widget.AppCompatButton {
         if (this.dayOfTheWeek == 0) this.dayOfTheWeek = 7;
         Calendar cur = Calendar.getInstance();
         if (cur.get(Calendar.YEAR) == this.year && cur.get(Calendar.MONTH) == this.month - 1 && cur.get(Calendar.DAY_OF_MONTH) == this.day) {
+            //通过AI调整圆的大小
             this.setForeground(getResources().getDrawable(R.drawable.ic_circle));
         }
     }

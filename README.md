@@ -1,4 +1,4 @@
 # my_diary
 just like Diarium...
 
-<font color=red size=16>Unfinished</font>
+<font color=#ff0000 size=16>Unfinished</font>

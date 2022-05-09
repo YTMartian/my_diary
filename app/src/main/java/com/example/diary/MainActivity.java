@@ -1,18 +1,20 @@
 package com.example.diary;
 
-import android.annotation.SuppressLint;
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.content.Context;
-import android.os.Build;
-import android.view.*;
-import android.widget.*;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import android.os.Bundle;
 import androidx.core.content.ContextCompat;
+import androidx.annotation.RequiresApi;
+import android.annotation.SuppressLint;
+import android.content.Context;
+import android.app.AlertDialog;
 
-import java.util.Calendar;
+import java.util.*;
+
+import android.app.Dialog;
+
+import android.os.Bundle;
+import android.os.Build;
+import android.widget.*;
+import android.view.*;
 
 public class MainActivity extends AppCompatActivity implements View.OnTouchListener {
     private DatePicker picker;
@@ -24,7 +26,9 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
     private int lastYear;
     private int currentYear;
     private Calendar curDate;
-    private int currentMonthScrollPosition;
+    private GridLayout tempGl;
+    //建立grid layout和年月份字符串之间的hashmap,以实现scrollview滚动
+    private HashMap<String, GridLayout> whichPositionToScrollTo;
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     @Override
@@ -39,6 +43,7 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
         scrollArea = findViewById(R.id.scrollArea);
         scrollView = findViewById(R.id.scrollView);
         curDate = Calendar.getInstance();
+        whichPositionToScrollTo = new HashMap<>();
         initialization();
     }
 
@@ -71,8 +76,6 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
         for (int year = currentYear - 1; year <= currentYear + 1; year++) {
             addYear(year, false);
         }
-        System.out.println("fuck  " + currentMonthScrollPosition);
-        scrollView.scrollTo(0, currentMonthScrollPosition);
     }
 
     /**
@@ -84,19 +87,20 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
     private void addYear(int year, boolean toTop) {
         Calendar c = Calendar.getInstance();
-        for (int month = 0; month < 12; month++) {
-            //获取当前日期所处位置
-            System.out.println(scrollView.getMeasuredHeight() + "***************");
-            if (currentYear == year && month == curDate.get(Calendar.MONTH)) {
-                currentMonthScrollPosition = scrollView.getMaxScrollAmount();
-            }
-
+        ArrayList<Integer> months = new ArrayList<Integer>(Arrays.asList(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11));
+        if (toTop) {//向上从末月开始添加月份
+            Collections.reverse(months);
+        }
+        for (Integer month : months) {
             GridLayout gl = new GridLayout(this);
             gl.setOrientation(GridLayout.VERTICAL);
             gl.setAlignmentMode(View.TEXT_ALIGNMENT_CENTER);
             c.set(year, month, 1);//月份从0开始
             int totalDays = c.getActualMaximum(Calendar.DAY_OF_MONTH);
-//            System.out.println(totalDays + "***" + c.get(Calendar.YEAR) + "-" + (c.get(Calendar.MONTH) + 1) + "-" + c.get(Calendar.DAY_OF_MONTH));
+            //获取当前日期所处位置
+            if (currentYear == year && month == curDate.get(Calendar.MONTH)) {
+                tempGl = gl;
+            }
             //显示月份信息
             TextView tv = new TextView(this);
             tv.setBackgroundColor(getResources().getColor(R.color.colorDark));
@@ -179,6 +183,7 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
                 gl.addView(ll);
             }
             scrollArea.addView(gl, toTop ? 0 : -1);
+            whichPositionToScrollTo.put(Integer.toString(year) + Integer.toString(month), gl);
         }
     }
 
@@ -271,8 +276,11 @@ public class MainActivity extends AppCompatActivity implements View.OnTouchListe
 
         @Override
         public void onClick(View v) {
+            System.out.println(scrollView.getHeight());
+            System.out.println(tempGl.getHeight());
 //            System.out.println(scrollView.getScrollY());
-//            scrollView.scrollTo(0,1100);
+            scrollView.scrollTo(0, tempGl.getHeight());
+            System.out.println(whichPositionToScrollTo.get("20201"));
 //            new AlertDialog.Builder(context)
 //                    .setTitle("日期")
 //                    .setMessage(this.year + "-" + this.month + "-" + this.day)
